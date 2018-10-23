@@ -10,11 +10,26 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    @IBOutlet weak var gridView: GridView!
+    @IBOutlet var gridPatternButtons: [UIButton]!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        gridPatternButtons[0].isSelected = false
+        gridPatternButtons[1].isSelected = true
+        gridPatternButtons[2].isSelected = false
     }
 
-
+    @IBAction func gridButton(_ sender: UIButton) {
+        
+        // for each to change button form
+        gridPatternButtons.forEach { $0.isSelected = false }
+        sender.isSelected = true
+        
+        
+        
+    }
+    
 }
 
