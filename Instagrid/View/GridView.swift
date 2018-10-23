@@ -10,12 +10,25 @@ import UIKit
 
 class GridView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    @IBOutlet private var topLeftView: UIView!
+    @IBOutlet private var topRightView: UIView!
+    @IBOutlet private var BotRightView: UIView!
+    @IBOutlet private var BotLeftView: UIView!
+   
+    var grid: Grid! {
+        didSet {
+            setStyle()
+        }
     }
-    */
-
+    
+    private func setStyle() {
+        
+        let views = [topLeftView,topRightView,BotRightView,BotLeftView]
+        for i in 0..<views.count{
+            let value = grid.display[i]
+            views[i]?.isHidden = value
+        }
+    }
+    
+    
 }

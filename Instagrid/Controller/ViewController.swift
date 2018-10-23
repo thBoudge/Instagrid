@@ -16,6 +16,7 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        gridView.grid = .twoOne
         gridPatternButtons[0].isSelected = false
         gridPatternButtons[1].isSelected = true
         gridPatternButtons[2].isSelected = false
@@ -27,7 +28,20 @@ class ViewController: UIViewController {
         gridPatternButtons.forEach { $0.isSelected = false }
         sender.isSelected = true
         
+        // symbolise 1 element de t bouton
+        gridPatternButtons.forEach { $0.isSelected = false }
+        sender.isSelected = true
         
+        switch sender.tag {
+        case 0:
+            gridView.grid = .oneTwo
+        case 1:
+            gridView.grid = .twoOne
+        case 2:
+            gridView.grid = .four
+        default:
+            break
+        }
         
     }
     

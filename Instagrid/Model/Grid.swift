@@ -6,16 +6,21 @@
 //  Copyright © 2018 Thomas Bouges. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class Grid: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+// enum for each three possible grid 
+enum Grid {
+    case oneTwo, twoOne, four
+    var display: [Bool] {
+        switch self {
+        case .oneTwo:
+            return [false, true, false, false]
+        case .twoOne:
+            return [false, false, false, true]
+        case .four:
+            return [false, false, false, false]
+            // break default n'est pas obligatoire si enumeration
+        }
     }
-    */
-
+    
 }
