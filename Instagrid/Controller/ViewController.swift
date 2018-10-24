@@ -8,20 +8,34 @@
 
 import UIKit
 
-class ViewController: UIViewController {
-
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+ 
     @IBOutlet weak var gridView: GridView!
     @IBOutlet var gridPatternButtons: [UIButton]!
+    
+    
+    @IBOutlet weak var topLeftButtonAddImage: UIButton!
+    @IBOutlet weak var topRightButtonAddImage: UIButton!
+    @IBOutlet weak var botLeftButtonAddImage: UIButton!
+    @IBOutlet weak var botRightButtonAddImage: UIButton!
+    
+    @IBOutlet weak var topLeftImage: UIImageView!
+    @IBOutlet weak var topRightImage: UIImageView!
+    @IBOutlet weak var botLeftImage: UIImageView!
+    @IBOutlet weak var botRightImage: UIImageView!
+    
+    let imagePickerController = UIImagePickerController()
+    
+    var imageInt: Int?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         gridView.grid = .twoOne
-        gridPatternButtons[0].isSelected = false
-        gridPatternButtons[1].isSelected = true
-        gridPatternButtons[2].isSelected = false
+        imagePickerController.delegate = self
     }
 
+    // function to change button and grid
     @IBAction func gridButton(_ sender: UIButton) {
         
         // for each to change button form
@@ -43,6 +57,56 @@ class ViewController: UIViewController {
             break
         }
         
+    }
+    
+    //function to add image
+    @IBAction func addImage(_ sender: UIButton) {
+       
+        imageInt = sender.tag
+        addAction()
+        
+       
+    }
+    
+    
+    private func addAction () {
+        
+        // func URL https://www.youtube.com/watch?v=4CbcMZOSmEk
+        
+        
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        
+        actionSheet.addAction(UIAlertAction(title: "Photo Gallery", style: .default,
+                                            handler: {(action:UIAlertAction) in self.imagePickerController.sourceType = .photoLibrary
+                                            self.present(self.imagePickerController, animated: true, completion: nil)
+                                            }))
+        
+        actionSheet.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
+    
+        self.present(actionSheet,animated: true,completion: nil)
+        
+    }
+    
+    // function pour aller chercher image dans la library
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        
+        // a revoir
+        guard let tag = imageInt else { return }
+        let imageViews = [topLeftImage,topRightImage,botLeftImage,botRightImage]
+        let buttons = [topLeftButtonAddImage,topRightButtonAddImage,botLeftButtonAddImage,botRightButtonAddImage]
+        
+        let imageView = imageViews[tag]
+        let button = buttons[tag]
+        imageView?.image = image
+        button?.isHidden = true
+
+        picker.dismiss(animated: true, completion: nil)
+        }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
     }
     
 }
