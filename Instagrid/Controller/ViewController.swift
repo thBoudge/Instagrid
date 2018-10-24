@@ -19,10 +19,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var botLeftButtonAddImage: UIButton!
     @IBOutlet weak var botRightButtonAddImage: UIButton!
     
-    @IBOutlet weak var topLeftImage: UIImageView!
-    @IBOutlet weak var topRightImage: UIImageView!
-    @IBOutlet weak var botLeftImage: UIImageView!
-    @IBOutlet weak var botRightImage: UIImageView!
+    @IBOutlet weak var topLeftImageView: UIImageView!
+    @IBOutlet weak var topRightImageView: UIImageView!
+    @IBOutlet weak var botLeftImageView: UIImageView!
+    @IBOutlet weak var botRightImageView: UIImageView!
     
     let imagePickerController = UIImagePickerController()
     
@@ -31,9 +31,35 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //initiate gridView form
         gridView.grid = .twoOne
+        
         imagePickerController.delegate = self
+        
+        //tapGesture for + button
+        //-----------------------------------------------------------------------------------------
+        let tapTopLeftImageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapTopLeftImage(recigniser:)))
+        let tapTopRightImageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapTopRightImage(recigniser:)))
+        let tapBotLeftImageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapBotLeftImage(recigniser:)))
+        let tapBotRightImageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapBotRightImage(recigniser:)))
+        
+        tapTopLeftImageGestureRecognizer.numberOfTapsRequired = 1
+        
+        //.isUserInteractionEnabled = false
+        topLeftImageView.isUserInteractionEnabled = false
+        topRightImageView.isUserInteractionEnabled = false
+        botLeftButtonAddImage.isUserInteractionEnabled = false
+        botRightImageView.isUserInteractionEnabled = false
+        
+        topLeftImageView.addGestureRecognizer(tapTopLeftImageGestureRecognizer)
+        topRightImageView.addGestureRecognizer(tapTopRightImageGestureRecognizer)
+        botLeftButtonAddImage.addGestureRecognizer(tapBotLeftImageGestureRecognizer)
+        botRightImageView.addGestureRecognizer(tapBotRightImageGestureRecognizer)
+        //------------------------------------------------------------------------------------------
+    
     }
+    
+   
 
     // function to change button and grid
     @IBAction func gridButton(_ sender: UIButton) {
@@ -68,6 +94,30 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
        
     }
     
+    //function to button+ appear with tap on photo of ImageView
+    @objc func tapTopLeftImage (recigniser: UITapGestureRecognizer) {
+        
+        topLeftButtonAddImage.isHidden = false
+        topLeftImageView.isUserInteractionEnabled = false
+    }
+    
+    @objc func tapTopRightImage (recigniser: UITapGestureRecognizer) {
+        
+        topRightButtonAddImage.isHidden = false
+        topRightImageView.isUserInteractionEnabled = false
+    }
+    @objc func tapBotLeftImage (recigniser: UITapGestureRecognizer) {
+        
+        botLeftButtonAddImage.isHidden = false
+        botLeftImageView.isUserInteractionEnabled = false
+    }
+    
+    @objc func tapBotRightImage (recigniser: UITapGestureRecognizer) {
+        
+        botRightButtonAddImage.isHidden = false
+        botRightImageView.isUserInteractionEnabled = false
+    }
+    
     
     private func addAction () {
         
@@ -94,13 +144,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         // a revoir
         guard let tag = imageInt else { return }
-        let imageViews = [topLeftImage,topRightImage,botLeftImage,botRightImage]
+        let imageViews = [topLeftImageView,topRightImageView,botLeftImageView,botRightImageView]
         let buttons = [topLeftButtonAddImage,topRightButtonAddImage,botLeftButtonAddImage,botRightButtonAddImage]
         
         let imageView = imageViews[tag]
         let button = buttons[tag]
+        //add image
         imageView?.image = image
+        // isUserInteractionEnabled = true for this image
+        imageView?.isUserInteractionEnabled = true
+        // Button +
         button?.isHidden = true
+        
 
         picker.dismiss(animated: true, completion: nil)
         }
@@ -108,6 +163,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
+    
+    
+    
     
 }
 

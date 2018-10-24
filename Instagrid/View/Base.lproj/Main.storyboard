@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.30.1" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_0" orientation="landscape">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -23,11 +23,11 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Instagrid" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="568" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="f3o-ac-ijY">
-                                <rect key="frame" x="440.5" y="60.5" width="80" height="254"/>
+                                <rect key="frame" x="10" y="444" width="300" height="80"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HRn-jY-H0q">
                                         <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
@@ -38,7 +38,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DAk-Uu-4bM">
-                                        <rect key="frame" x="0.0" y="87" width="80" height="80"/>
+                                        <rect key="frame" x="110" y="0.0" width="80" height="80"/>
                                         <state key="normal" backgroundImage="Layout 21"/>
                                         <state key="disabled" backgroundImage="Layout 21"/>
                                         <state key="selected" image="Selected" backgroundImage="Layout 21"/>
@@ -47,7 +47,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ncw-WI-fV6">
-                                        <rect key="frame" x="0.0" y="174" width="80" height="80"/>
+                                        <rect key="frame" x="220" y="0.0" width="80" height="80"/>
                                         <state key="normal" backgroundImage="Layout 4 "/>
                                         <state key="disabled" backgroundImage="Layout 4 "/>
                                         <state key="selected" image="Selected" backgroundImage="Layout 4 "/>
@@ -59,25 +59,25 @@
                                 <variation key="heightClass=compact" axis="vertical" spacing="7"/>
                             </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jU8-LZ-h2v" customClass="GridView" customModule="Instagrid" customModuleProvider="target">
-                                <rect key="frame" x="157.5" y="61" width="253" height="253"/>
+                                <rect key="frame" x="30" y="154" width="260" height="260"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="xGm-GR-DZM">
-                                        <rect key="frame" x="15" y="15" width="223" height="223"/>
+                                        <rect key="frame" x="15" y="15" width="230" height="230"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="YPR-qy-BE7">
-                                                <rect key="frame" x="0.0" y="0.0" width="223" height="104"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="230" height="107.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tA8-t9-hNq" userLabel="TopLeftView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="107.5" height="107.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tGc-p4-fYc" userLabel="TopLefImageView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="107.5" height="107.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="tGc-p4-fYc" secondAttribute="height" multiplier="1:1" id="ekN-jw-VFw"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0N-ZD-QUl" userLabel="TopLeftButton">
-                                                                <rect key="frame" x="27.5" y="27.5" width="49" height="49"/>
+                                                                <rect key="frame" x="29.5" y="29.5" width="49" height="49"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="a0N-ZD-QUl" secondAttribute="height" multiplier="1:1" id="j2h-IM-Xkw"/>
                                                                 </constraints>
@@ -99,16 +99,16 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wQh-Bx-OZK" userLabel="TopRightView">
-                                                        <rect key="frame" x="119" y="0.0" width="104" height="104"/>
+                                                        <rect key="frame" x="122.5" y="0.0" width="107.5" height="107.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="exE-U9-0d6" userLabel="TopRightImageView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="107.5" height="107.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="exE-U9-0d6" secondAttribute="height" multiplier="1:1" id="bBE-rb-L7X"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nmt-7h-DjR" userLabel="TopRightButton">
-                                                                <rect key="frame" x="27.5" y="27.5" width="49" height="49"/>
+                                                                <rect key="frame" x="29.5" y="29.5" width="49" height="49"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="nmt-7h-DjR" secondAttribute="height" multiplier="1:1" id="Usg-oj-iFn"/>
                                                                 </constraints>
@@ -133,19 +133,19 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="UO2-7P-dUn">
-                                                <rect key="frame" x="0.0" y="119" width="223" height="104"/>
+                                                <rect key="frame" x="0.0" y="122.5" width="230" height="107.5"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TWm-VP-gNh" userLabel="BotLeftView">
-                                                        <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="107.5" height="107.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="2" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zFi-ux-Urd" userLabel="BotLeftImageView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="107.5" height="107.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="zFi-ux-Urd" secondAttribute="height" multiplier="1:1" id="Eqp-Yw-cOX"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rFe-qL-bDl" userLabel="BotLeftButton">
-                                                                <rect key="frame" x="27.5" y="27.5" width="49" height="49"/>
+                                                                <rect key="frame" x="29.5" y="29.5" width="49" height="49"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="rFe-qL-bDl" secondAttribute="height" multiplier="1:1" id="I9f-Sh-tr1"/>
                                                                 </constraints>
@@ -168,16 +168,16 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h2b-aQ-C3L" userLabel="BotRightView">
-                                                        <rect key="frame" x="119" y="0.0" width="104" height="104"/>
+                                                        <rect key="frame" x="122.5" y="0.0" width="107.5" height="107.5"/>
                                                         <subviews>
                                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="3" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6ZZ-85-LHN" userLabel="BotRightImageView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="104" height="104"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="107.5" height="107.5"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="6ZZ-85-LHN" secondAttribute="height" multiplier="1:1" id="9wi-nF-rzp"/>
                                                                 </constraints>
                                                             </imageView>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7E0-PU-oJJ" userLabel="BotRightButton">
-                                                                <rect key="frame" x="27.5" y="27.5" width="49" height="49"/>
+                                                                <rect key="frame" x="29.5" y="29.5" width="49" height="49"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="width" secondItem="7E0-PU-oJJ" secondAttribute="height" multiplier="1:1" id="Jeq-4G-RKH"/>
                                                                 </constraints>
@@ -234,24 +234,23 @@
                                 </connections>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Instagrid" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbA-j2-upe">
-                                <rect key="frame" x="201" y="6" width="166" height="53"/>
+                                <rect key="frame" x="77" y="40" width="166" height="53"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="53" id="EAr-BR-7cA"/>
-                                    <constraint firstAttribute="width" constant="166" id="cKP-26-Ilk"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="ThirstySoftRegular" family="Thirsty Soft" pointSize="42"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="yl5-Ew-xNt">
-                                <rect key="frame" x="26.5" y="156" width="125" height="63.5"/>
+                                <rect key="frame" x="86" y="97" width="148" height="47"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="flecheHaut" adjustsImageSizeForAccessibilityContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xZk-80-FS7">
-                                        <rect key="frame" x="57.5" y="0.0" width="10" height="15"/>
+                                        <rect key="frame" x="66.5" y="0.0" width="15" height="10"/>
                                         <variation key="heightClass=compact" image="flecheGauche"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hsc-fc-CKp">
-                                        <rect key="frame" x="0.0" y="42" width="125" height="21.5"/>
+                                        <rect key="frame" x="0.0" y="20" width="148" height="27"/>
                                         <attributedString key="attributedText">
                                             <fragment content="Swipe up to share">
                                                 <attributes>
@@ -354,14 +353,14 @@
                     </view>
                     <connections>
                         <outlet property="botLeftButtonAddImage" destination="rFe-qL-bDl" id="nph-uM-tCQ"/>
-                        <outlet property="botLeftImage" destination="zFi-ux-Urd" id="z7z-oW-dAt"/>
+                        <outlet property="botLeftImageView" destination="zFi-ux-Urd" id="z7z-oW-dAt"/>
                         <outlet property="botRightButtonAddImage" destination="7E0-PU-oJJ" id="ueb-MZ-jk9"/>
-                        <outlet property="botRightImage" destination="6ZZ-85-LHN" id="MLP-GN-FBh"/>
+                        <outlet property="botRightImageView" destination="6ZZ-85-LHN" id="MLP-GN-FBh"/>
                         <outlet property="gridView" destination="jU8-LZ-h2v" id="xda-n0-e6h"/>
                         <outlet property="topLeftButtonAddImage" destination="a0N-ZD-QUl" id="zHv-gp-xvr"/>
-                        <outlet property="topLeftImage" destination="tGc-p4-fYc" id="kR9-zD-Mc0"/>
+                        <outlet property="topLeftImageView" destination="tGc-p4-fYc" id="kR9-zD-Mc0"/>
                         <outlet property="topRightButtonAddImage" destination="nmt-7h-DjR" id="UYO-mr-KEv"/>
-                        <outlet property="topRightImage" destination="exE-U9-0d6" id="M9r-Lf-p6k"/>
+                        <outlet property="topRightImageView" destination="exE-U9-0d6" id="M9r-Lf-p6k"/>
                         <outletCollection property="gridPatternButtons" destination="Ncw-WI-fV6" collectionClass="NSMutableArray" id="z7j-fh-pNJ"/>
                         <outletCollection property="gridPatternButtons" destination="DAk-Uu-4bM" collectionClass="NSMutableArray" id="XkX-Hp-nAD"/>
                         <outletCollection property="gridPatternButtons" destination="HRn-jY-H0q" collectionClass="NSMutableArray" id="51y-dN-UAi"/>
