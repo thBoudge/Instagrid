@@ -21,6 +21,8 @@ class GridView: UIView {
         }
     }
     
+    
+    
     private func setStyle() {
         
         let views = [topLeftView,topRightView,BotRightView,BotLeftView]

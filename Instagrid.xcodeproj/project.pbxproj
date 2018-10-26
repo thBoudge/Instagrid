@@ -16,6 +16,8 @@
 		1474D039217E71C9008B68A6 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1474D038217E71C9008B68A6 /* GridView.swift */; };
 		14D36A752180CA7100345942 /* ThirstySoftRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14D36A732180CA7100345942 /* ThirstySoftRegular.otf */; };
 		14D36A762180CA7100345942 /* Delm-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 14D36A742180CA7100345942 /* Delm-Medium.otf */; };
+		14D933D421820E3400397199 /* UIImagePickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D933D321820E3400397199 /* UIImagePickerController.swift */; };
+		14D933D621820F4E00397199 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D933D521820F4E00397199 /* UIView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +32,8 @@
 		1474D038217E71C9008B68A6 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		14D36A732180CA7100345942 /* ThirstySoftRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ThirstySoftRegular.otf; sourceTree = "<group>"; };
 		14D36A742180CA7100345942 /* Delm-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Delm-Medium.otf"; sourceTree = "<group>"; };
+		14D933D321820E3400397199 /* UIImagePickerController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImagePickerController.swift; sourceTree = "<group>"; };
+		14D933D521820F4E00397199 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +66,7 @@
 		1474D01F217E6FFD008B68A6 /* Instagrid */ = {
 			isa = PBXGroup;
 			children = (
+				14D933D221820DFE00397199 /* Extension */,
 				1474D035217E713E008B68A6 /* View */,
 				1474D034217E7135008B68A6 /* Model */,
 				1474D033217E7120008B68A6 /* Controller */,
@@ -106,6 +111,15 @@
 				1474D038217E71C9008B68A6 /* GridView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		14D933D221820DFE00397199 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				14D933D321820E3400397199 /* UIImagePickerController.swift */,
+				14D933D521820F4E00397199 /* UIView.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -185,6 +199,8 @@
 				1474D021217E6FFD008B68A6 /* AppDelegate.swift in Sources */,
 				1474D039217E71C9008B68A6 /* GridView.swift in Sources */,
 				1474D037217E719A008B68A6 /* Grid.swift in Sources */,
+				14D933D621820F4E00397199 /* UIView.swift in Sources */,
+				14D933D421820E3400397199 /* UIImagePickerController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

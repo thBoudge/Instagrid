@@ -14,6 +14,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet var gridPatternButtons: [UIButton]!
     
     
+    
     @IBOutlet weak var topLeftButtonAddImage: UIButton!
     @IBOutlet weak var topRightButtonAddImage: UIButton!
     @IBOutlet weak var botLeftButtonAddImage: UIButton!
@@ -25,9 +26,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var botRightImageView: UIImageView!
     
     let imagePickerController = UIImagePickerController()
+    var swipeGesture: UISwipeGestureRecognizer?
     
     var imageInt: Int?
-    
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,29 +38,49 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
         imagePickerController.delegate = self
         
-        //tapGesture for + button
-        //-----------------------------------------------------------------------------------------
-        let tapTopLeftImageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapTopLeftImage(recigniser:)))
-        let tapTopRightImageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapTopRightImage(recigniser:)))
-        let tapBotLeftImageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapBotLeftImage(recigniser:)))
-        let tapBotRightImageGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapBotRightImage(recigniser:)))
         
-        tapTopLeftImageGestureRecognizer.numberOfTapsRequired = 1
+        //swipe left or up
+        // URL : https://www.youtube.com/watch?v=BZ_Ke0dYpdw
         
-        //.isUserInteractionEnabled = false
-        topLeftImageView.isUserInteractionEnabled = false
-        topRightImageView.isUserInteractionEnabled = false
-        botLeftButtonAddImage.isUserInteractionEnabled = false
-        botRightImageView.isUserInteractionEnabled = false
+        swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleShareAction))
+       setUpSwipeDirection()
+        guard let swipeGesture = swipeGesture else {return}
         
-        topLeftImageView.addGestureRecognizer(tapTopLeftImageGestureRecognizer)
-        topRightImageView.addGestureRecognizer(tapTopRightImageGestureRecognizer)
-        botLeftButtonAddImage.addGestureRecognizer(tapBotLeftImageGestureRecognizer)
-        botRightImageView.addGestureRecognizer(tapBotRightImageGestureRecognizer)
-        //------------------------------------------------------------------------------------------
-    
+        gridView.addGestureRecognizer(swipeGesture)
+        
+        
+    }
+    //Swipe func to share
+    @objc func handleShareAction (){
+        
+        if swipeGesture?.direction == .up {
+            print("swipe up")
+            sharingGrid()
+        } else {print("swipe left")
+            sharingGrid()
+        }
+        
     }
     
+    //func portraut vs landscape
+    func setUpSwipeDirection (){
+        if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight { //UIDevice.current.orientation.isLandscape
+            print("Landscape")
+            
+            swipeGesture?.direction = .left
+            
+            
+            
+        } else {
+            print("Portrait")
+            
+            swipeGesture?.direction = .up
+            
+            
+        }
+        
+        
+    }
    
 
     // function to change button and grid
@@ -95,28 +117,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     
     //function to button+ appear with tap on photo of ImageView
-    @objc func tapTopLeftImage (recigniser: UITapGestureRecognizer) {
+    @objc func tapImageView (recogniser: UITapGestureRecognizer) {
         
-        topLeftButtonAddImage.isHidden = false
-        topLeftImageView.isUserInteractionEnabled = false
+        // UiImage sous class Uiview
+        imageInt = recogniser.view?.tag
+        addAction()
+        
     }
     
-    @objc func tapTopRightImage (recigniser: UITapGestureRecognizer) {
-        
-        topRightButtonAddImage.isHidden = false
-        topRightImageView.isUserInteractionEnabled = false
-    }
-    @objc func tapBotLeftImage (recigniser: UITapGestureRecognizer) {
-        
-        botLeftButtonAddImage.isHidden = false
-        botLeftImageView.isUserInteractionEnabled = false
-    }
-    
-    @objc func tapBotRightImage (recigniser: UITapGestureRecognizer) {
-        
-        botRightButtonAddImage.isHidden = false
-        botRightImageView.isUserInteractionEnabled = false
-    }
     
     
     private func addAction () {
@@ -151,13 +159,19 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let button = buttons[tag]
         //add image
         imageView?.image = image
-        // isUserInteractionEnabled = true for this image
-        imageView?.isUserInteractionEnabled = true
+        
         // Button +
         button?.isHidden = true
         
+        // initialisation of tapGesture on ImageView
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapImageView(recogniser:)))
+        imageView?.addGestureRecognizer(tapGestureRecognizer)
 
         picker.dismiss(animated: true, completion: nil)
+        
+        
+        
+        
         }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -166,6 +180,31 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     
     
+    // a voir changer par notify pblm setup swipe
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        setUpSwipeDirection()
+      
+    }
+    
+
+    
+    
+    
+  // function in order to share gridView
+    // URL : https://www.youtube.com/watch?v=6o4PmMywIA8
+    func sharingGrid(){
+        
+        guard let imageGrid = gridView.convertToImage() else {return}
+        
+        let activityViewController = UIActivityViewController(activityItems: [imageGrid], applicationActivities: nil)
+        
+        //where sharing menu appear
+        //activityViewController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        
+        present(activityViewController, animated: true, completion: nil)
+        
+    }
     
 }
 
