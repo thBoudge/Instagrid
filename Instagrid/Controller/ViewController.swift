@@ -27,7 +27,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     let imagePickerController = UIImagePickerController()
     var swipeGesture: UISwipeGestureRecognizer?
-    
+  
     var imageInt: Int?
    
     
@@ -52,13 +52,64 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     }
     //Swipe func to share
     @objc func handleShareAction (){
+        //let screenWidth = UIScreen.main.bounds.width
+       // let screenHeight = UIScreen.main.bounds.height
         
+        var translationTransform: CGAffineTransform
         if swipeGesture?.direction == .up {
             print("swipe up")
-            sharingGrid()
-        } else {print("swipe left")
-            sharingGrid()
+            translationTransform = CGAffineTransform(translationX: 0, y: -view.frame.height)
+        } else {
+            print("swipe left")
+            translationTransform = CGAffineTransform(translationX: -view.frame.width, y: 0)
         }
+        // self uniquement dans les closure et dans les initialisation
+        UIView.animate(withDuration: 0.3, animations: {
+                    self.gridView.transform = translationTransform
+                    }, completion: { (success) in
+                        if success {
+                            self.sharingGrid()
+                        }
+                    })
+        
+    }
+    
+    // function in order to share gridView
+    // URL : https://www.youtube.com/watch?v=6o4PmMywIA8
+    func sharingGrid(){
+        /*
+        //gridView appear in this place with animation
+        gridView.transform = .identity
+        // We reduce size of grid view in order to create after thet a zoom effect
+        gridView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        //We animate grid view in order it get back to this previous form
+        UIView.animate(withDuration: 0.4,  animations: {
+        self.gridView.transform = .identity
+        }, completion:nil)
+        */
+        
+        guard let imageGrid = gridView.convertToImage() else {return}
+        
+        let activityViewController = UIActivityViewController(activityItems: [imageGrid], applicationActivities: nil)
+        
+        present(activityViewController, animated: true, completion: nil)
+        
+        // gridView appear after activity activityviewcontroller ended
+        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+            // Return if cancelled
+            if (!completed) {
+                //gridView appear in this place with animation
+                self.gridView.transform = .identity
+                // We reduce size of grid view in order to create after thet a zoom effect
+                self.gridView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+                //We animate grid view in order it get back to this previous form
+                UIView.animate(withDuration: 0.4,  animations: {
+                    self.gridView.transform = .identity
+                }, completion:nil)
+            }
+
+        }
+        
         
     }
     
@@ -66,20 +117,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func setUpSwipeDirection (){
         if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight { //UIDevice.current.orientation.isLandscape
             print("Landscape")
-            
-            swipeGesture?.direction = .left
-            
-            
-            
-        } else {
+            swipeGesture?.direction = .left } else {
             print("Portrait")
-            
             swipeGesture?.direction = .up
-            
-            
         }
-        
-        
     }
    
 
@@ -104,41 +145,42 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         default:
             break
         }
-        
     }
     
     //function to add image
     @IBAction func addImage(_ sender: UIButton) {
-       
-        imageInt = sender.tag
+       imageInt = sender.tag
         addAction()
-        
-       
-    }
+     }
     
     //function to button+ appear with tap on photo of ImageView
     @objc func tapImageView (recogniser: UITapGestureRecognizer) {
-        
         // UiImage sous class Uiview
         imageInt = recogniser.view?.tag
         addAction()
-        
     }
     
-    
-    
-    private func addAction () {
-        
+     private func addAction () {
         // func URL https://www.youtube.com/watch?v=4CbcMZOSmEk
-        
-        
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
-        
         
         actionSheet.addAction(UIAlertAction(title: "Photo Gallery", style: .default,
                                             handler: {(action:UIAlertAction) in self.imagePickerController.sourceType = .photoLibrary
                                             self.present(self.imagePickerController, animated: true, completion: nil)
                                             }))
+        //bonus camera
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default,
+                                            handler: {(action:UIAlertAction) in
+                                                if UIImagePickerController.isSourceTypeAvailable(.camera){
+                                                    self.imagePickerController.sourceType = .camera
+                                                    self.present(self.imagePickerController, animated: true, completion: nil)
+                                                }else{
+                                                    print("Caméra not available")
+                                                    // mettre une alert
+                                                    
+                                                }
+                                               
+        }))
         
         actionSheet.addAction(UIAlertAction(title: "cancel", style: .cancel, handler: nil))
     
@@ -166,45 +208,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         // initialisation of tapGesture on ImageView
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapImageView(recogniser:)))
         imageView?.addGestureRecognizer(tapGestureRecognizer)
+        //////// gesture sur cette photo voir si on en créé une autre ou pas si oui evité car ce repete si on clique sur photo
 
         picker.dismiss(animated: true, completion: nil)
-        
-        
-        
-        
-        }
+    }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
     
-    
-    
     // a voir changer par notify pblm setup swipe
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         setUpSwipeDirection()
-      
     }
     
-
-    
-    
-    
-  // function in order to share gridView
-    // URL : https://www.youtube.com/watch?v=6o4PmMywIA8
-    func sharingGrid(){
-        
-        guard let imageGrid = gridView.convertToImage() else {return}
-        
-        let activityViewController = UIActivityViewController(activityItems: [imageGrid], applicationActivities: nil)
-        
-        //where sharing menu appear
-        //activityViewController.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
-        
-        present(activityViewController, animated: true, completion: nil)
-        
-    }
-    
+  
 }
 
