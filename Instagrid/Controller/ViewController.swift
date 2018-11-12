@@ -29,7 +29,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var swipeGesture: UISwipeGestureRecognizer?
   
     var imageInt: Int?
-   
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +47,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let swipeGesture = swipeGesture else {return}
         
         gridView.addGestureRecognizer(swipeGesture)
+       
+      ///////
+        if (topLeftImageView == nil || botLeftButtonAddImage == nil ||
+            gridView.grid == .oneTwo && botRightButtonAddImage == nil || gridView.grid == .twoOne && topRightImageView == nil) {}
         
         
     }
@@ -68,7 +72,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                     self.gridView.transform = translationTransform
                     }, completion: { (success) in
                         if success {
-                            self.sharingGrid()
+                            ///////ne marche pas///////
+                            if (self.topLeftImageView.image == nil || self.botLeftImageView.image == nil ||
+                                ((self.gridView.grid == .oneTwo || self.gridView.grid == .four) && self.botRightImageView.image == nil) || (self.gridView.grid == .twoOne || self.gridView.grid == .four) && self.topRightImageView.image == nil) {
+                                
+                                let alert = UIAlertController(title: "error Missing Image", message: "Missing picture please add one", preferredStyle: UIAlertController.Style.alert)
+                                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                                self.present(alert, animated: true, completion: nil)
+                                self.gridViewReturn()
+                            }
+                            else {self.sharingGrid()}
                         }
                     })
         
@@ -98,18 +111,23 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             // Return if cancelled
             if (!completed) {
-                //gridView appear in this place with animation
-                self.gridView.transform = .identity
-                // We reduce size of grid view in order to create after thet a zoom effect
-                self.gridView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
-                //We animate grid view in order it get back to this previous form
-                UIView.animate(withDuration: 0.4,  animations: {
-                    self.gridView.transform = .identity
-                }, completion:nil)
+                self.gridViewReturn()
             }
 
         }
         
+        
+    }
+    
+    func gridViewReturn () {
+        //gridView appear in this place with animation
+        self.gridView.transform = .identity
+        // We reduce size of grid view in order to create after thet a zoom effect
+        self.gridView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        //We animate grid view in order it get back to this previous form
+        UIView.animate(withDuration: 0.4,  animations: {
+            self.gridView.transform = .identity
+        }, completion:nil)
         
     }
     
@@ -175,8 +193,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                                     self.imagePickerController.sourceType = .camera
                                                     self.present(self.imagePickerController, animated: true, completion: nil)
                                                 }else{
-                                                    print("Caméra not available")
-                                                    // mettre une alert
+                                                    let alertCamera = UIAlertController(title: "error Missing Image", message: "Missing picture please add one", preferredStyle: UIAlertController.Style.alert)
+                                                    alertCamera.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                                                    self.present(alertCamera, animated: true, completion: nil)
                                                     
                                                 }
                                                
