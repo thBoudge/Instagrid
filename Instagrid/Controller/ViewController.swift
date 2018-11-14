@@ -13,8 +13,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBOutlet weak var gridView: GridView!
     @IBOutlet var gridPatternButtons: [UIButton]!
     
-    
-    
     @IBOutlet weak var topLeftButtonAddImage: UIButton!
     @IBOutlet weak var topRightButtonAddImage: UIButton!
     @IBOutlet weak var botLeftButtonAddImage: UIButton!
@@ -27,7 +25,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     let imagePickerController = UIImagePickerController()
     var swipeGesture: UISwipeGestureRecognizer?
-  
     var imageInt: Int?
     
     
@@ -43,6 +40,17 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
        // observer for orientation
         NotificationCenter.default.addObserver(self, selector: #selector(setUpSwipeDirection), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
+    
+    //func portrait vs landscape
+    @objc func setUpSwipeDirection (){
+        if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
+            print("Landscape")
+            swipeGesture?.direction = .left } else {
+            print("Portrait")
+            swipeGesture?.direction = .up
+        }
+    }
+    
     
     //Swipe func to share
     @objc func handleShareAction (){
@@ -79,7 +87,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         guard let imageGrid = gridView.convertToImage() else {return}
         let activityViewController = UIActivityViewController(activityItems: [imageGrid], applicationActivities: nil)
         
-        present(activityViewController, animated: true, completion: nil)
+        present(activityViewController, animated: true, completion: {self.gridViewReturn()})
         // gridView appear after activity activityviewcontroller ended
         activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
             // Return if cancelled
@@ -100,17 +108,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             self.gridView.transform = .identity
         }, completion:nil)
     }
-    
-    //func portrait vs landscape
-    @objc func setUpSwipeDirection (){
-        if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight { //UIDevice.current.orientation.isLandscape
-            print("Landscape")
-            swipeGesture?.direction = .left } else {
-            print("Portrait")
-            swipeGesture?.direction = .up
-        }
-    }
-   
 
     // function to change button and grid
     @IBAction func gridButton(_ sender: UIButton) {
