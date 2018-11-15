@@ -8,20 +8,20 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController/*, UIImagePickerControllerDelegate, UINavigationControllerDelegate */{
  
     @IBOutlet weak var gridView: GridView!
     @IBOutlet var gridPatternButtons: [UIButton]!
+    //nom func puis terminer type
+    @IBOutlet weak var topLeftAddButton: UIButton!
+    @IBOutlet weak var topRightAddButton: UIButton!
+    @IBOutlet weak var botLeftAddButton: UIButton!
+    @IBOutlet weak var botRightAddButton: UIButton!
     
-    @IBOutlet weak var topLeftButtonAddImage: UIButton!
-    @IBOutlet weak var topRightButtonAddImage: UIButton!
-    @IBOutlet weak var botLeftButtonAddImage: UIButton!
-    @IBOutlet weak var botRightButtonAddImage: UIButton!
-    
-    @IBOutlet weak var topLeftImageView: UIImageView!
-    @IBOutlet weak var topRightImageView: UIImageView!
-    @IBOutlet weak var botLeftImageView: UIImageView!
-    @IBOutlet weak var botRightImageView: UIImageView!
+    @IBOutlet weak var topLeftUIImageView: UIImageView!
+    @IBOutlet weak var topRightUIImageView: UIImageView!
+    @IBOutlet weak var botLeftUIImageView: UIImageView!
+    @IBOutlet weak var botRightUIImageView: UIImageView!
     
     let imagePickerController = UIImagePickerController()
     var swipeGesture: UISwipeGestureRecognizer?
@@ -44,15 +44,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     //func portrait vs landscape
     @objc func setUpSwipeDirection (){
         if UIDevice.current.orientation == .landscapeLeft || UIDevice.current.orientation == .landscapeRight {
-            print("Landscape")
+            print("Landscape")// a enlever
             swipeGesture?.direction = .left } else {
             print("Portrait")
             swipeGesture?.direction = .up
         }
     }
     
-    
-    //Swipe func to share
+    //func Swipe to share
     @objc func handleShareAction (){
         var translationTransform: CGAffineTransform
         if swipeGesture?.direction == .up {
@@ -62,21 +61,21 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
             print("swipe left")
             translationTransform = CGAffineTransform(translationX: -view.frame.width, y: 0)
         }
-        // self uniquement dans les closure et dans les initialisation
+        // self uniquement dans les closures et dans les initialisations
         UIView.animate(withDuration: 0.3, animations: {
                     self.gridView.transform = translationTransform
                     }, completion: { (success) in
-                        if success {
-                            //Bloc swipe if not all Uiimageview have been load with an image
-                            if (self.topLeftImageView.image == nil || self.botLeftImageView.image == nil ||
-                                ((self.gridView.grid == .oneTwo || self.gridView.grid == .four) && self.botRightImageView.image == nil) || (self.gridView.grid == .twoOne || self.gridView.grid == .four) && self.topRightImageView.image == nil) {
-                                
-                                let alert = UIAlertController(title: "error Missing Image", message: "Missing picture please add one", preferredStyle: UIAlertController.Style.alert)
+                        if success { // faire fonction
+                            
+                            // si is ... return true
+                            if self.gridView.isAvailableToShare() {
+                                self.sharingGrid()
+                            }else {
+                                let alert = UIAlertController(title: "Error Missing Image", message: "Missing picture please add one", preferredStyle: UIAlertController.Style.alert)
                                 alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                                 self.present(alert, animated: true, completion: nil)
                                 self.gridViewReturn()
                             }
-                            else {self.sharingGrid()}
                         }
                     })
     }
@@ -86,14 +85,12 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     func sharingGrid(){
         guard let imageGrid = gridView.convertToImage() else {return}
         let activityViewController = UIActivityViewController(activityItems: [imageGrid], applicationActivities: nil)
-        
-        present(activityViewController, animated: true, completion: {self.gridViewReturn()})
+        present(activityViewController, animated: true, completion: {})
         // gridView appear after activity activityviewcontroller ended
-        activityViewController.completionWithItemsHandler = {(activityType: UIActivity.ActivityType?, completed: Bool, returnedItems: [Any]?, error: Error?) in
+        // _ permet de ne pas utiliser les variables demandées
+        activityViewController.completionWithItemsHandler = {_, _, _, _ in
             // Return if cancelled
-            if (!completed) {
-                self.gridViewReturn()
-            }
+           self.gridViewReturn()
         }
      }
     
@@ -142,14 +139,24 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         addAction()
     }
     
-     private func addAction () {
+    
+    /*Correct mais le view willtransfert ne prends pas en compte le mode landscape en mode landscape , mieux vaux utiliser notice Observer
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        setUpSwipeDirection()
+    }*/
+    }
+
+extension ViewController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    private func addAction () {
         // func URL https://www.youtube.com/watch?v=4CbcMZOSmEk
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Photo Gallery", style: .default,
                                             handler: {(action:UIAlertAction) in self.imagePickerController.sourceType = .photoLibrary
-                                            self.present(self.imagePickerController, animated: true, completion: nil)
-                                            }))
+                                                self.present(self.imagePickerController, animated: true, completion: nil)
+        }))
         //bonus camera
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default,
                                             handler: {(action:UIAlertAction) in
@@ -158,7 +165,7 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                                                     self.present(self.imagePickerController, animated: true, completion: nil)
                                                 }else{
                                                     //error alert message
-                                                    let alertCamera = UIAlertController(title: "error No Camera available", message: "Camera not found", preferredStyle: UIAlertController.Style.alert)
+                                                    let alertCamera = UIAlertController(title: "Error No Camera available", message: "Camera not found", preferredStyle: UIAlertController.Style.alert)
                                                     alertCamera.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
                                                     self.present(alertCamera, animated: true, completion: nil)
                                                 }
@@ -172,34 +179,28 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         // a revoir
         guard let tag = imageInt else { return }
-        let imageViews = [topLeftImageView,topRightImageView,botLeftImageView,botRightImageView]
-        let buttons = [topLeftButtonAddImage,topRightButtonAddImage,botLeftButtonAddImage,botRightButtonAddImage]
+        let imageViews = [topLeftUIImageView,topRightUIImageView,botLeftUIImageView,botRightUIImageView]
+        let buttons = [topLeftAddButton,topRightAddButton,botLeftAddButton,botRightAddButton]
         let imageView = imageViews[tag]
-        let button = buttons[tag]
-        
+        guard let button = buttons[tag] else { return } //****
+        imageView?.image = image
         //If in order to do not have multiple tapGesture on image
-        if button?.isHidden == true {
-            imageView?.image = image
-            picker.dismiss(animated: true, completion: nil)
-        }else {
-            //add image
-            imageView?.image = image
+        //!button ! avant ca veut dure le contraire *****
+        if !button.isHidden {
             // Button +
-            button?.isHidden = true
+            button.isHidden = true
             // initialisation of tapGesture on ImageView
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapImageView(recogniser:)))
             imageView?.addGestureRecognizer(tapGestureRecognizer)
-            picker.dismiss(animated: true, completion: nil)
         }
+        picker.dismiss(animated: true, completion: nil)
+        
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    /*Correct mais le view willtransfert ne prends pas en compte le mode landscape en mode landscape , mieux vaux utiliser notice Observer
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
-        super.viewWillTransition(to: size, with: coordinator)
-        setUpSwipeDirection()
-    }*/
-    }
+    
+}
+
 

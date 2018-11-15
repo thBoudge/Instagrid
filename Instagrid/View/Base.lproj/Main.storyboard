@@ -191,8 +191,8 @@
                                     <constraint firstAttribute="width" secondItem="jU8-LZ-h2v" secondAttribute="height" multiplier="1:1" id="qWM-yF-8fQ"/>
                                 </constraints>
                                 <connections>
-                                    <outlet property="BotLeftView" destination="h2b-aQ-C3L" id="MBP-Nr-jUv"/>
-                                    <outlet property="BotRightView" destination="TWm-VP-gNh" id="oee-QK-ZvU"/>
+                                    <outlet property="botLeftView" destination="h2b-aQ-C3L" id="MBP-Nr-jUv"/>
+                                    <outlet property="botRightView" destination="TWm-VP-gNh" id="oee-QK-ZvU"/>
                                     <outlet property="topLeftView" destination="tA8-t9-hNq" id="UDf-lW-Du8"/>
                                     <outlet property="topRightView" destination="wQh-Bx-OZK" id="Jha-ZW-Q7M"/>
                                 </connections>
@@ -317,15 +317,15 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="botLeftButtonAddImage" destination="rFe-qL-bDl" id="nph-uM-tCQ"/>
-                        <outlet property="botLeftImageView" destination="zFi-ux-Urd" id="z7z-oW-dAt"/>
-                        <outlet property="botRightButtonAddImage" destination="7E0-PU-oJJ" id="ueb-MZ-jk9"/>
-                        <outlet property="botRightImageView" destination="6ZZ-85-LHN" id="MLP-GN-FBh"/>
+                        <outlet property="botLeftAddButton" destination="rFe-qL-bDl" id="nph-uM-tCQ"/>
+                        <outlet property="botLeftUIImageView" destination="zFi-ux-Urd" id="z7z-oW-dAt"/>
+                        <outlet property="botRightAddButton" destination="7E0-PU-oJJ" id="ueb-MZ-jk9"/>
+                        <outlet property="botRightUIImageView" destination="6ZZ-85-LHN" id="MLP-GN-FBh"/>
                         <outlet property="gridView" destination="jU8-LZ-h2v" id="xda-n0-e6h"/>
-                        <outlet property="topLeftButtonAddImage" destination="a0N-ZD-QUl" id="zHv-gp-xvr"/>
-                        <outlet property="topLeftImageView" destination="tGc-p4-fYc" id="kR9-zD-Mc0"/>
-                        <outlet property="topRightButtonAddImage" destination="nmt-7h-DjR" id="UYO-mr-KEv"/>
-                        <outlet property="topRightImageView" destination="exE-U9-0d6" id="M9r-Lf-p6k"/>
+                        <outlet property="topLeftAddButton" destination="a0N-ZD-QUl" id="zHv-gp-xvr"/>
+                        <outlet property="topLeftUIImageView" destination="tGc-p4-fYc" id="kR9-zD-Mc0"/>
+                        <outlet property="topRightAddButton" destination="nmt-7h-DjR" id="UYO-mr-KEv"/>
+                        <outlet property="topRightUIImageView" destination="exE-U9-0d6" id="M9r-Lf-p6k"/>
                         <outletCollection property="gridPatternButtons" destination="Ncw-WI-fV6" collectionClass="NSMutableArray" id="z7j-fh-pNJ"/>
                         <outletCollection property="gridPatternButtons" destination="DAk-Uu-4bM" collectionClass="NSMutableArray" id="XkX-Hp-nAD"/>
                         <outletCollection property="gridPatternButtons" destination="HRn-jY-H0q" collectionClass="NSMutableArray" id="51y-dN-UAi"/>
