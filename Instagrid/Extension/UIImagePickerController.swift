@@ -10,10 +10,11 @@ import UIKit
 
 extension UIImagePickerController {
     
-    // on impose true permet la rotation
+    // We force true in order to have rotation
     open override var shouldAutorotate: Bool { return true }
     
-    //On autorise a tourner dans toute les interfaces
+    //We allow rotation in all "Interfaces"
     open override var supportedInterfaceOrientations: UIInterfaceOrientationMask {return .all}
+    
     
 }

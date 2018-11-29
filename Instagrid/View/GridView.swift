@@ -15,7 +15,8 @@ class GridView: UIView {
     @IBOutlet private var botRightView: UIView!
     @IBOutlet private var botLeftView: UIView!
    
-    
+    // lazy variable initiate only when var is called
+    lazy var views = [topLeftView,topRightView,botRightView,botLeftView]
     
     var grid: Grid! {
         didSet {
@@ -24,8 +25,6 @@ class GridView: UIView {
     }
     
     private func setStyle() {
-        
-        let views = [topLeftView,topRightView,botRightView,botLeftView]
         for i in 0..<views.count{
             let value = grid.display[i]
             views[i]?.isHidden = value
@@ -33,20 +32,16 @@ class GridView: UIView {
     }
     
     func isAvailableToShare () ->Bool {
-        
-       let containtViews = [topLeftView,topRightView,botRightView,botLeftView] // voir pour ne pas répéter
-        
-        for i in 0..<containtViews.count {
+        for i in 0..<views.count {
             
-            guard let containtView = containtViews[i] else {return false}
-            // subview on decend hierarchiquement dans view et objet dedans
-            let imageView = containtView.subviews[0] as? UIImageView
+            guard let containtView = views[i] else {return false}
+            let imageView = containtView.subviews[0] as? UIImageView  // subviews : hierarchy view here View->UiImageView(0)->button(1)
             if !containtView.isHidden, imageView?.image == nil {
-                
                 return false
             }
-            
         }
         return true
     }
 }
+
+

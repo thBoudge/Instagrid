@@ -19,8 +19,11 @@ enum Grid {
             return [false, false, false, true]
         case .four:
             return [false, false, false, false]
-            // break default n'est pas obligatoire si enumeration
+        // perso: break default is not an obligation if we are doing an enum
         }
     }
     
 }
+
+
+

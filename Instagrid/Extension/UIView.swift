@@ -11,11 +11,11 @@ import UIKit
 extension UIView {
     
     func convertToImage () -> UIImage? {
-        
-        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0)
-        drawHierarchy(in: bounds, afterScreenUpdates: true)
-        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil}
-        UIGraphicsEndImageContext()
+        // We transform image in BitMap format
+        UIGraphicsBeginImageContextWithOptions(bounds.size, isOpaque, 0.0) //start context 
+        drawHierarchy(in: bounds, afterScreenUpdates: true) // we build image
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else { return nil} //we take Image
+        UIGraphicsEndImageContext() // We close Contaxt all the time we do need to stop context after have taken image
         return image
         
     }
