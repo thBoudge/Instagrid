@@ -16,7 +16,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var topRightAddButton: UIButton!
     @IBOutlet weak var botLeftAddButton: UIButton!
     @IBOutlet weak var botRightAddButton: UIButton!
-    @IBOutlet weak var topLeftImageView: UIImageView! // enlever UI
+    @IBOutlet weak var topLeftImageView: UIImageView!
     @IBOutlet weak var topRightImageView: UIImageView!
     @IBOutlet weak var botLeftImageView: UIImageView!
     @IBOutlet weak var botRightImageView: UIImageView!
@@ -30,6 +30,7 @@ class ViewController: UIViewController{
         super.viewDidLoad()
         //initiate gridView form
         gridView.grid = .twoOne
+        //Start of ImagePicker
         imagePickerController.delegate = self
         //swipe left or up
         swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleShareAction))
@@ -113,9 +114,9 @@ class ViewController: UIViewController{
     // function for animate gridView return after a swipe
     func gridViewReturn () {
         //gridView appear in this place with animation
-        self.gridView.transform = .identity
+        gridView.transform = .identity
         // We reduce size of grid view in order to create after thet a zoom effect
-        self.gridView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
+        gridView.transform = CGAffineTransform(scaleX: 0.01, y: 0.01)
         //We animate grid view in order it get back to this previous form
         UIView.animate(withDuration: 0.4,  animations: {
             self.gridView.transform = .identity
@@ -164,7 +165,7 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
         let imageViews = [topLeftImageView,topRightImageView,botLeftImageView,botRightImageView]
         let buttons = [topLeftAddButton,topRightAddButton,botLeftAddButton,botRightAddButton]
         let imageView = imageViews[tag]
-        guard let button = buttons[tag] else { return } //****
+        guard let button = buttons[tag] else { return }
         imageView?.image = image
         //If in order to do not have multiple tapGesture on image
         if !button.isHidden {
@@ -174,25 +175,18 @@ extension ViewController : UIImagePickerControllerDelegate, UINavigationControll
             let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapImageView(recogniser:)))
             imageView?.addGestureRecognizer(tapGestureRecognizer)
         }
+       
+        
         picker.dismiss(animated: true, completion: nil)
         
     }
     
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+   /* func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
-    }
+    }*/
     
 
 }
 
 
-/* Perso : Correct mais le view willtransfert ne prends pas en compte le mode landscape en mode landscape , mieux vaux utiliser notice Observer
- override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
- super.viewWillTransition(to: size, with: coordinator)
- setUpSwipeDirection()
- }*/
-// self uniquement dans les closures et dans les initialisations
-// _ permet de ne pas utiliser les variables demandées
-// $0 symbolise 1 element de t bouton
-//!button ! avant ca veut dure le contraire *****
-//handler {closure}
+
